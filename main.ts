@@ -11,7 +11,11 @@ export async function main() {
 
   events.forEach((event) => {
     for (const property of event.properties) {
-      const entry = countsByProperty[property] || { count: 0 };
+      let entry = countsByProperty[property];
+      if (!entry) {
+        entry = { count: 0 };
+        countsByProperty[property] = entry;
+      }
       entry.count += 1;
     }
   });
